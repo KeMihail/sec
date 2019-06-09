@@ -1,0 +1,32 @@
+CREATE TABLE `user`
+(
+    `id`       int          NOT NULL AUTO_INCREMENT,
+    `userName` varchar(255) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `roles`
+(
+    `id`   int          NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `user_roles`
+(
+    `user_id` int NOT NULL,
+    `role_id` int NOT NULL,
+    PRIMARY KEY (`user_id`, `role_id`)
+);
+
+ALTER TABLE `user_roles`
+    ADD CONSTRAINT `user_roles_fk0` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+ALTER TABLE `user_roles`
+    ADD CONSTRAINT `user_roles_fk1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+
+insert into user (id,userName,password) values (1,'mihail',500290);
+insert into roles (id,name) values (1,'ROLE_USER');
+insert into roles (id,name) values (2,'ROLE_ADMIN');
+insert into user_roles (user_id,role_id) values (1,2);
